@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Technology | Confidential Archive</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0c;
+            --panel-bg: #141418;
+            --accent-color: #00ff41; /* 매트릭스 그린 */
+            --warning-color: #ff3e3e;
+            --text-color: #d1d1d1;
+            --border-style: 1px solid #333;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border: var(--border-style);
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.05);
+            position: relative;
+        }
+
+        /* 워터마크 */
+        .container::before {
+            content: "CONFIDENTIAL";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 8rem;
+            color: rgba(255, 255, 255, 0.02);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+        }
+
+        .meta-info {
+            font-size: 0.8rem;
+            color: #888;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .project-title {
+            background-color: var(--accent-color);
+            color: black;
+            display: inline-block;
+            padding: 2px 10px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .serum-section {
+            background: var(--panel-bg);
+            border: var(--border-style);
+            margin-bottom: 30px;
+            padding: 25px;
+            position: relative;
+        }
+
+        .serum-name {
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .serum-name::before {
+            content: "▶";
+            margin-right: 10px;
+            font-size: 0.8rem;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        li::before {
+            content: "-";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        .warning-text {
+            color: var(--warning-color);
+            font-weight: bold;
+            border: 1px dashed var(--warning-color);
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #555;
+            margin-top: 50px;
+            border-top: var(--border-style);
+            padding-top: 20px;
+        }
+
+        .status-dot {
+            height: 8px;
+            width: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>MAGIC TECHNOLOGY RESEARCH LAB</h1>
+        <div class="meta-info">
+            <span>FILE ID: MT-77-ALPHA/BETA</span>
+            <span>CLEARANCE: LEVEL 5</span>
+            <span>STATUS: <span class="status-dot"></span>ENCRYPTED</span>
+        </div>
+    </header>
+
+    <div class="project-title">PROJECT: BIO-AUGMENTATION</div>
+
+    <section class="serum-section">
+        <h2 class="serum-name">ALPHA (α) 혈청</h2>
+        <ul>
+            <li><strong>개발 목적:</strong> 인체 신체 능력의 한계 돌파 및 초월적 강화</li>
+            <li><strong>연구 결과:</strong> 실험체 중 극소수만이 능력을 부여받는 데 성공함 (성공률 극악)</li>
+            <li><strong>성능 지표:</strong> 현존하는 강화 혈청 중 가장 높은 잠재 능력치 보유</li>
+        </ul>
+        <div class="warning-text">
+            [경고] 부작용 데이터: 신경계 붕괴 및 신체 변이 확률 95% 상회. 결과는 매우 치명적임.
+        </div>
+    </section>
+
+    <section class="serum-section">
+        <h2 class="serum-name">BETA (β) 혈청</h2>
+        <ul>
+            <li><strong>개발 개요:</strong> Alpha 혈청의 안정성을 개선한 2세대 정제 모델</li>
+            <li><strong>대상 적합성:</strong> 14세 이하 피험자군에서만 비교적 높은 확률로 반응 확인 (전체 확률은 여전히 낮음)</li>
+            <li><strong>성능 지표:</strong> 부하 조절을 위해 Alpha 혈청보다 부여 능력의 최대 출력치를 하향 조정함</li>
+        </ul>
+        <div class="warning-text">
+            [주의] 부작용 데이터: Alpha 혈청과 유사한 신체 거부 반응 및 세포 변이 기록됨.
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 MAGIC TECHNOLOGY. ALL SYSTEMS OPERATIONAL. 
+        <br>본 문서는 1급 기밀로 분류되며 승인되지 않은 접근 시 IP 추적이 시작됩니다.
+    </footer>
+</div>
+
+</body>
+</html>
