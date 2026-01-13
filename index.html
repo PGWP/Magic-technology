@@ -2,8 +2,8 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magic Technology | Restricted Access</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Magic Technology | Mobile Access</title>
     <style>
         :root {
             --bg-color: #0a0a0c;
@@ -14,232 +14,201 @@
             --border-style: 1px solid #333;
         }
 
+        /* 박스 크기 계산법 수정 (패딩이 너비에 포함되도록 함) */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
+            padding: 10px; /* 모바일 여백 */
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        /* 로그인 섹션 */
+        /* 로그인 화면 수정 */
         #login-screen {
-            text-align: center;
+            width: 100%;
+            max-width: 350px;
+            margin-top: 20vh;
             border: var(--border-style);
-            padding: 50px;
+            padding: 30px 20px;
             background: var(--panel-bg);
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
-            z-index: 10;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
         }
 
         #login-screen h2 {
             color: var(--accent-color);
-            margin-bottom: 20px;
-            letter-spacing: 5px;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
         }
 
         input[type="password"] {
-            background: black;
+            background: #000;
             border: 1px solid var(--accent-color);
             color: var(--accent-color);
-            padding: 10px;
-            font-size: 1.2rem;
+            padding: 12px;
+            font-size: 1.1rem;
             text-align: center;
+            width: 100%; /* 입력창 너비 100% */
+            margin: 20px 0;
             outline: none;
-            width: 200px;
-            margin-bottom: 20px;
         }
 
         button {
             background: var(--accent-color);
             color: black;
             border: none;
-            padding: 10px 25px;
+            padding: 12px 0;
+            width: 100%; /* 버튼 너비 100% */
             font-weight: bold;
             cursor: pointer;
-            font-family: inherit;
         }
 
-        button:hover {
-            background: #00cc33;
-        }
-
-        #error-msg {
-            color: var(--warning-color);
-            margin-top: 15px;
-            font-size: 0.8rem;
-            height: 20px;
-        }
-
-        /* 메인 콘텐츠 (초기 숨김) */
+        /* 메인 콘텐츠 레이아웃 수정 */
         #main-content {
             display: none;
-            max-width: 900px;
-            width: 90%;
-            margin: 40px auto;
+            width: 100%;
+            max-width: 600px; /* 갤럭시 화면 너비에 맞춤 */
+            margin: 20px auto;
             border: var(--border-style);
-            padding: 40px;
+            padding: 15px;
             background: var(--bg-color);
-            position: relative;
         }
 
-        /* 기존 스타일 유지 */
-        header { border-bottom: 2px solid var(--accent-color); margin-bottom: 30px; padding-bottom: 10px; }
-        h1 { color: var(--accent-color); margin: 0; font-size: 1.8rem; }
-        .project-title { background-color: var(--accent-color); color: black; display: inline-block; padding: 2px 10px; font-weight: bold; margin-bottom: 20px; }
-        .serum-section { background: var(--panel-bg); border: var(--border-style); margin-bottom: 30px; padding: 25px; }
-        .serum-name { font-size: 1.4rem; color: var(--accent-color); margin-top: 0; }
-        .warning-text { color: var(--warning-color); font-weight: bold; border: 1px dashed var(--warning-color); padding: 10px; margin-top: 15px; }
-        footer { text-align: center; font-size: 0.7rem; color: #555; margin-top: 50px; }
-        
-        .status-dot { height: 8px; width: 8px; background-color: var(--accent-color); border-radius: 50%; display: inline-block; margin-right: 5px; animation: blink 1s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 1.1rem; /* 모바일 대응 폰트 크기 */
+            color: var(--accent-color);
+            margin: 0;
+        }
+
+        .project-title {
+            background-color: var(--accent-color);
+            color: black;
+            padding: 3px 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .serum-section {
+            background: var(--panel-bg);
+            border: var(--border-style);
+            margin-bottom: 15px;
+            padding: 15px;
+            word-break: break-all; /* 긴 텍스트 줄바꿈 */
+        }
+
+        .serum-name {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            margin: 0 0 10px 0;
+        }
+
+        ul {
+            padding-left: 18px;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        li { margin-bottom: 8px; }
+
+        .warning-text {
+            color: var(--warning-color);
+            border: 1px dashed var(--warning-color);
+            padding: 8px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+
+        footer {
+            font-size: 0.7rem;
+            color: #555;
+            text-align: center;
+            margin-top: 30px;
+            padding-bottom: 20px;
+        }
+
+        /* 에러 메시지 */
+        #error-msg {
+            color: var(--warning-color);
+            font-size: 0.75rem;
+            margin-top: 10px;
+            height: 15px;
+        }
     </style>
 </head>
 <body>
 
 <div id="login-screen">
     <h2>SYSTEM ACCESS</h2>
-    <p>ENTER PERMISSION CODE</p>
-    <input type="password" id="password-input" placeholder="****" onkeypress="handleKeyPress(event)">
-    <br>
-    <button onclick="checkPassword()">ACCESS</button>
+    <p style="font-size:0.8rem; color:#888;">PERMISSION CODE REQUIRED</p>
+    <input type="password" id="password-input" placeholder="****" inputmode="numeric">
+    <button onclick="checkPassword()">CONFIRM</button>
     <div id="error-msg"></div>
 </div>
 
 <div id="main-content">
     <header>
-        <h1>MAGIC TECHNOLOGY RESEARCH LAB</h1>
-        <div style="display:flex; justify-content: space-between; font-size: 0.8rem; color:#888; margin-top:10px;">
-            <span>FILE ID: MT-77-ALPHA/BETA</span>
-            <span>STATUS: <span class="status-dot"></span>AUTHORIZED</span>
+        <h1>MAGIC TECHNOLOGY LAB</h1>
+        <div style="font-size: 0.7rem; color:#666; margin-top:5px; display:flex; justify-content:space-between;">
+            <span>ID: MT-77-SECURE</span>
+            <span>LEVEL 5 AUTHORIZED</span>
         </div>
     </header>
 
     <div class="project-title">PROJECT: BIO-AUGMENTATION</div>
 
     <section class="serum-section">
-        <h2 class="serum-name">▶ ALPHA (α) 혈청</h2>
+        <h2 class="serum-name">▶ ALPHA (α)</h2>
         <ul>
             <li>성공률 극악의 최초 초월 강화 혈청.</li>
-            <li>부여 능력 성능은 최상위권이나 통제 불가능.</li>
+            <li>잠재 성능은 이론상 최상위 단계.</li>
         </ul>
-        <div class="warning-text">[CRITICAL] 부작용: 투여 즉시 세포 파괴 및 사망 위험 매우 높음.</div>
+        <div class="warning-text">부작용: 신경계 붕괴 및 신체 변이 확률 95% 상회. 치명적.</div>
     </section>
 
     <section class="serum-section">
-        <h2 class="serum-name">▶ BETA (β) 혈청</h2>
+        <h2 class="serum-name">▶ BETA (β)</h2>
         <ul>
-            <li>Alpha 개선형. 14세 이하에서만 유효 반응 확인.</li>
-            <li>성능은 Alpha보다 낮으나 수용 확률 소폭 상승.</li>
+            <li>14세 이하 피험자군 특화 개량형.</li>
+            <li>출력 하향 조정을 통한 안정성 확보 시도.</li>
         </ul>
-        <div class="warning-text">[WARNING] 부작용: Alpha와 유사한 치명적 신체 손상 보고됨.</div>
+        <div class="warning-text">주의: 여전히 높은 신체 거부 반응 보고됨.</div>
     </section>
 
     <footer>
-        &copy; 2026 MAGIC TECHNOLOGY. ALL RIGHTS RESERVED.
+        &copy; 2026 MAGIC TECHNOLOGY.
     </footer>
 </div>
 
 <script>
     function checkPassword() {
         const password = document.getElementById('password-input').value;
-        const correctPassword = "0000"; // 나중에 이 부분을 수정하세요
-
-        if (password === correctPassword) {
+        if (password === "0000") {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
-            document.body.style.display = 'block'; // 레이아웃 재정렬
         } else {
-            const errorMsg = document.getElementById('error-msg');
-            errorMsg.innerText = "ACCESS DENIED: INVALID CODE";
+            document.getElementById('error-msg').innerText = "ACCESS DENIED";
             document.getElementById('password-input').value = "";
         }
     }
-
-    function handleKeyPress(event) {
-        if (event.key === "Enter") {
-            checkPassword();
-        }
-    }
 </script>
-
-</body>
-</html>
-
-        footer {
-            text-align: center;
-            font-size: 0.7rem;
-            color: #555;
-            margin-top: 50px;
-            border-top: var(--border-style);
-            padding-top: 20px;
-        }
-
-        .status-dot {
-            height: 8px;
-            width: 8px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 5px;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <header>
-        <h1>MAGIC TECHNOLOGY RESEARCH LAB</h1>
-        <div class="meta-info">
-            <span>FILE ID: MT-77-ALPHA/BETA</span>
-            <span>CLEARANCE: LEVEL 5</span>
-            <span>STATUS: <span class="status-dot"></span>ENCRYPTED</span>
-        </div>
-    </header>
-
-    <div class="project-title">PROJECT: BIO-AUGMENTATION</div>
-
-    <section class="serum-section">
-        <h2 class="serum-name">ALPHA (α) 혈청</h2>
-        <ul>
-            <li><strong>개발 목적:</strong> 인체 신체 능력의 한계 돌파 및 초월적 강화</li>
-            <li><strong>연구 결과:</strong> 실험체 중 극소수만이 능력을 부여받는 데 성공함 (성공률 극악)</li>
-            <li><strong>성능 지표:</strong> 현존하는 강화 혈청 중 가장 높은 잠재 능력치 보유</li>
-        </ul>
-        <div class="warning-text">
-            [경고] 부작용 데이터: 신경계 붕괴 및 신체 변이 확률 95% 상회. 결과는 매우 치명적임.
-        </div>
-    </section>
-
-    <section class="serum-section">
-        <h2 class="serum-name">BETA (β) 혈청</h2>
-        <ul>
-            <li><strong>개발 개요:</strong> Alpha 혈청의 안정성을 개선한 2세대 정제 모델</li>
-            <li><strong>대상 적합성:</strong> 14세 이하 피험자군에서만 비교적 높은 확률로 반응 확인 (전체 확률은 여전히 낮음)</li>
-            <li><strong>성능 지표:</strong> 부하 조절을 위해 Alpha 혈청보다 부여 능력의 최대 출력치를 하향 조정함</li>
-        </ul>
-        <div class="warning-text">
-            [주의] 부작용 데이터: Alpha 혈청과 유사한 신체 거부 반응 및 세포 변이 기록됨.
-        </div>
-    </section>
-
-    <footer>
-        &copy; 2026 MAGIC TECHNOLOGY. ALL SYSTEMS OPERATIONAL. 
-        <br>본 문서는 1급 기밀로 분류되며 승인되지 않은 접근 시 IP 추적이 시작됩니다.
-    </footer>
-</div>
 
 </body>
 </html>
