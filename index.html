@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magic Technology | Confidential Archive</title>
+    <title>Magic Technology | Restricted Access</title>
     <style>
         :root {
             --bg-color: #0a0a0c;
             --panel-bg: #141418;
-            --accent-color: #00ff41; /* 매트릭스 그린 */
+            --accent-color: #00ff41;
             --warning-color: #ff3e3e;
             --text-color: #d1d1d1;
             --border-style: 1px solid #333;
@@ -19,110 +19,157 @@
             color: var(--text-color);
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            border: var(--border-style);
-            padding: 40px;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.05);
-            position: relative;
-        }
-
-        /* 워터마크 */
-        .container::before {
-            content: "CONFIDENTIAL";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-30deg);
-            font-size: 8rem;
-            color: rgba(255, 255, 255, 0.02);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        header {
-            border-bottom: 2px solid var(--accent-color);
-            margin-bottom: 30px;
-            padding-bottom: 10px;
-        }
-
-        h1 {
-            color: var(--accent-color);
-            margin: 0;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-        }
-
-        .meta-info {
-            font-size: 0.8rem;
-            color: #888;
             display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .project-title {
-            background-color: var(--accent-color);
-            color: black;
-            display: inline-block;
-            padding: 2px 10px;
-            font-weight: bold;
+        /* 로그인 섹션 */
+        #login-screen {
+            text-align: center;
+            border: var(--border-style);
+            padding: 50px;
+            background: var(--panel-bg);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
+            z-index: 10;
+        }
+
+        #login-screen h2 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            letter-spacing: 5px;
+        }
+
+        input[type="password"] {
+            background: black;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            outline: none;
+            width: 200px;
             margin-bottom: 20px;
         }
 
-        .serum-section {
-            background: var(--panel-bg);
-            border: var(--border-style);
-            margin-bottom: 30px;
-            padding: 25px;
-            position: relative;
-        }
-
-        .serum-name {
-            font-size: 1.4rem;
-            color: var(--accent-color);
-            margin-top: 0;
-            display: flex;
-            align-items: center;
-        }
-
-        .serum-name::before {
-            content: "▶";
-            margin-right: 10px;
-            font-size: 0.8rem;
-        }
-
-        ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        li {
-            margin-bottom: 12px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        li::before {
-            content: "-";
-            position: absolute;
-            left: 0;
-            color: var(--accent-color);
-        }
-
-        .warning-text {
-            color: var(--warning-color);
+        button {
+            background: var(--accent-color);
+            color: black;
+            border: none;
+            padding: 10px 25px;
             font-weight: bold;
-            border: 1px dashed var(--warning-color);
-            padding: 10px;
-            margin-top: 15px;
-            font-size: 0.9rem;
+            cursor: pointer;
+            font-family: inherit;
         }
+
+        button:hover {
+            background: #00cc33;
+        }
+
+        #error-msg {
+            color: var(--warning-color);
+            margin-top: 15px;
+            font-size: 0.8rem;
+            height: 20px;
+        }
+
+        /* 메인 콘텐츠 (초기 숨김) */
+        #main-content {
+            display: none;
+            max-width: 900px;
+            width: 90%;
+            margin: 40px auto;
+            border: var(--border-style);
+            padding: 40px;
+            background: var(--bg-color);
+            position: relative;
+        }
+
+        /* 기존 스타일 유지 */
+        header { border-bottom: 2px solid var(--accent-color); margin-bottom: 30px; padding-bottom: 10px; }
+        h1 { color: var(--accent-color); margin: 0; font-size: 1.8rem; }
+        .project-title { background-color: var(--accent-color); color: black; display: inline-block; padding: 2px 10px; font-weight: bold; margin-bottom: 20px; }
+        .serum-section { background: var(--panel-bg); border: var(--border-style); margin-bottom: 30px; padding: 25px; }
+        .serum-name { font-size: 1.4rem; color: var(--accent-color); margin-top: 0; }
+        .warning-text { color: var(--warning-color); font-weight: bold; border: 1px dashed var(--warning-color); padding: 10px; margin-top: 15px; }
+        footer { text-align: center; font-size: 0.7rem; color: #555; margin-top: 50px; }
+        
+        .status-dot { height: 8px; width: 8px; background-color: var(--accent-color); border-radius: 50%; display: inline-block; margin-right: 5px; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    </style>
+</head>
+<body>
+
+<div id="login-screen">
+    <h2>SYSTEM ACCESS</h2>
+    <p>ENTER PERMISSION CODE</p>
+    <input type="password" id="password-input" placeholder="****" onkeypress="handleKeyPress(event)">
+    <br>
+    <button onclick="checkPassword()">ACCESS</button>
+    <div id="error-msg"></div>
+</div>
+
+<div id="main-content">
+    <header>
+        <h1>MAGIC TECHNOLOGY RESEARCH LAB</h1>
+        <div style="display:flex; justify-content: space-between; font-size: 0.8rem; color:#888; margin-top:10px;">
+            <span>FILE ID: MT-77-ALPHA/BETA</span>
+            <span>STATUS: <span class="status-dot"></span>AUTHORIZED</span>
+        </div>
+    </header>
+
+    <div class="project-title">PROJECT: BIO-AUGMENTATION</div>
+
+    <section class="serum-section">
+        <h2 class="serum-name">▶ ALPHA (α) 혈청</h2>
+        <ul>
+            <li>성공률 극악의 최초 초월 강화 혈청.</li>
+            <li>부여 능력 성능은 최상위권이나 통제 불가능.</li>
+        </ul>
+        <div class="warning-text">[CRITICAL] 부작용: 투여 즉시 세포 파괴 및 사망 위험 매우 높음.</div>
+    </section>
+
+    <section class="serum-section">
+        <h2 class="serum-name">▶ BETA (β) 혈청</h2>
+        <ul>
+            <li>Alpha 개선형. 14세 이하에서만 유효 반응 확인.</li>
+            <li>성능은 Alpha보다 낮으나 수용 확률 소폭 상승.</li>
+        </ul>
+        <div class="warning-text">[WARNING] 부작용: Alpha와 유사한 치명적 신체 손상 보고됨.</div>
+    </section>
+
+    <footer>
+        &copy; 2026 MAGIC TECHNOLOGY. ALL RIGHTS RESERVED.
+    </footer>
+</div>
+
+<script>
+    function checkPassword() {
+        const password = document.getElementById('password-input').value;
+        const correctPassword = "0000"; // 나중에 이 부분을 수정하세요
+
+        if (password === correctPassword) {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            document.body.style.display = 'block'; // 레이아웃 재정렬
+        } else {
+            const errorMsg = document.getElementById('error-msg');
+            errorMsg.innerText = "ACCESS DENIED: INVALID CODE";
+            document.getElementById('password-input').value = "";
+        }
+    }
+
+    function handleKeyPress(event) {
+        if (event.key === "Enter") {
+            checkPassword();
+        }
+    }
+</script>
+
+</body>
+</html>
 
         footer {
             text-align: center;
